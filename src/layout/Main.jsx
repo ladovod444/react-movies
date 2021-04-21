@@ -12,26 +12,30 @@ class Main extends React.Component{
 		loading: false
 	}
 
-	// componentDidMount() {
-	// 	//fetch('http://www.omdbapi.com?apikey=${API_KEY}&s=matrix&type=game')
-	// 	fetch('http://www.omdbapi.com?apikey=${API_KEY}&s=matrix')
-	// 		.then(result => {
-	// 			//console.log('result', result)
-	// 			return result.json()
-	// 		})
-	// 		.then(
-	// 			(data) => {
-	// 				console.log(data.Search);
-	// 				this.setState({movies: data.Search})
-	// 			})
-	// }
+	componentDidMount() {
+		//fetch('http://www.omdbapi.com?apikey=${API_KEY}&s=matrix&type=game')
+		fetch('https://www.omdbapi.com?apikey=${API_KEY}&s=matrix')
+			.then(result => {
+				//console.log('result', result)
+				return result.json()
+			})
+			.then(
+				(data) => {
+					console.log(data.Search);
+					this.setState({movies: data.Search})
+				})
+			.catch( (err) => {
+				console.log(err);
+				this.setState({loading: false})
+			})
+	}
 
 	typeChange = (type, str) => {
 		console.log('type =', type);
 		//const search = str ? str : 'matrix';
 		const search = str;
 		console.log('search =', search);
-		let url = `http://www.omdbapi.com?apikey=${API_KEY}&s=${search}`;
+		let url = `https://www.omdbapi.com?apikey=${API_KEY}&s=${search}`;
 		if (type!== 'All') {
 			url += `&type=${type}`;
 		}
@@ -54,7 +58,7 @@ class Main extends React.Component{
 		console.log('type =', type)
 		//const search = str ? str : 'matrix';
 		const search = str;
-		fetch(`http://www.omdbapi.com?apikey=${API_KEY}&s=${search}${type !== 'all' ? `&type=${type}` : ''}`)
+		fetch(`https://www.omdbapi.com?apikey=${API_KEY}&s=${search}${type !== 'all' ? `&type=${type}` : ''}`)
 			.then(result => {
 				//console.log('result', result)
 				return result.json()
